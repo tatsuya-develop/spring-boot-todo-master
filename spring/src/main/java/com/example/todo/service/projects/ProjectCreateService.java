@@ -3,6 +3,7 @@ package com.example.todo.service.projects;
 import org.springframework.stereotype.Service;
 import com.example.todo.dto.request.projects.ProjectCreateRequest;
 import com.example.todo.entity.Project;
+import com.example.todo.repository.ProjectRepository;
 
 /**
  * @Service Spring MVCのサービスとして振る舞うクラスに付与するアノテーション。このアノテーションが付与されたクラスは、ビジネスロジックを持つサービスとして動作する。
@@ -10,8 +11,12 @@ import com.example.todo.entity.Project;
 @Service
 public class ProjectCreateService {
 
+  private final ProjectRepository projectRepository;
+
   // コンストラクタ
-  public ProjectCreateService() {}
+  public ProjectCreateService(ProjectRepository projectRepository) {
+    this.projectRepository = projectRepository;
+  }
 
   public Project invoke(ProjectCreateRequest request) {
     Project project = new Project();
@@ -19,7 +24,7 @@ public class ProjectCreateService {
     project.setName(request.getName());
     project.setSummary(request.getSummary());
 
-    // TODO: projectをDBに保存するロジックを実装する。
-    return project;
+    // .save()メソッドを使用して、ProjectRepositoryのsaveメソッドを呼び出し、引数にprojectを渡すことで、データベースにデータを保存する。
+    return this.projectRepository.save(project);
   }
 }
