@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.todo.dto.request.projects.ProjectCreateRequest;
 import com.example.todo.entity.Project;
+import com.example.todo.service.projects.ProjectCreateService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +21,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectCreateController {
+  private final ProjectCreateService projectCreateService;
 
-  // コンストラクタ
-  public ProjectCreateController() {}
+  /**
+   * コンストラクタインジェクション（DI）
+   *
+   * コンストラクタインジェクション（DI）とは、クラスのコンストラクタを使用して、依存性の注入を行う方法のこと。
+   * 依存性の注入とは、クラス間の依存関係を外部から注入することで、クラス間の結合度を低くし、柔軟な設計を実現するための手法。
+   * 実際の動きとしては、コンストラクタの引数にインターフェースを指定し、そのインターフェースを実装したクラスのインスタンスを渡すことで、依存性の注入を行う。
+   *
+   * DI に関する Q&A
+   *
+   * DIされたインスタンスは、どのタイミングで生成されたもの？ → Spring Frameworkによって、アプリケーションの起動時に生成される。
+   * DIされたインスタンスは、どのタイミングで破棄されるもの？ → Spring Frameworkによって、アプリケーションの終了時に破棄される。
+   *
+   * @param projectCreateService
+   */
+  public ProjectCreateController(ProjectCreateService projectCreateService) {
+    // コンストラクタインジェクションで受け取ったProjectCreateServiceのインスタンスを、フィールドに代入する。
+    this.projectCreateService = projectCreateService;
+  }
 
   /**
    * @PostMapping HTTP POSTリクエストを受け取るメソッドに付与するアノテーション。このアノテーションが付与されたメソッドは、HTTP
@@ -37,8 +55,7 @@ public class ProjectCreateController {
    */
   @PostMapping
   public ResponseEntity<Project> invoke(@Valid @RequestBody ProjectCreateRequest request) {
-    // TODO: Projectを作成するロジックを実装する。
-    Project project = new Project();
+    Project project = this.projectCreateService.invoke(request);
 
     // okメソッドを使用して、HTTPステータス200を返却する。
     // また、作成したProjectオブジェクトをJSON形式で返却する。
