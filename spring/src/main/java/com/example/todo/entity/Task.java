@@ -1,8 +1,11 @@
 package com.example.todo.entity;
 
 import java.time.LocalDateTime;
+import com.example.todo.enums.task.TaskPriority;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,9 +32,12 @@ public class Task extends BaseEntity {
   @Column(length = 255, nullable = false)
   private String name;
 
-  // priority は、0: 優先度 低, 1: 優先度 中, 2: 優先度 高 の3つの値とする
+  /**
+   * @Enumerated EnumType.ORDINAL を指定することで、列挙型の値をデータベースに保存する際に、列挙型のインデックス（0, 1, 2, ...）を保存する。
+   */
   @Column(name = "priority", nullable = false, columnDefinition = "SMALLINT")
-  private Integer priority = 1; // 初期値は 優先度 中
+  @Enumerated(EnumType.ORDINAL)
+  private TaskPriority priority = TaskPriority.MEDIUM;
 
   @Column(name = "memo", columnDefinition = "TEXT")
   private String memo = "";
