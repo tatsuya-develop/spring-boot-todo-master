@@ -21,15 +21,13 @@ public class TaskBaseResponse {
 
   private String memo;
 
-  // TODO: LocalDateTime で返す場合、ISO 8601 形式（yyyy-MM-dd'T'HH:mm:ss）で返されてしまう。
-  // これを yyyy-MM-dd HH:mm で返すように変更したい。
-  private LocalDateTime deadlineAt;
+  private String deadlineAt;
 
-  private LocalDateTime completedAt;
+  private String completedAt;
 
-  private LocalDateTime createdAt;
+  private String createdAt;
 
-  private LocalDateTime updatedAt;
+  private String updatedAt;
 
   public TaskBaseResponse(Task task) {
     this.id = task.getId();
@@ -37,9 +35,13 @@ public class TaskBaseResponse {
     this.name = task.getName();
     this.priority = new TaskPriorityResponse(task.getPriority());
     this.memo = task.getMemo();
-    this.deadlineAt = task.getDeadlineAt() != null ? task.getDeadlineAt() : null;
-    this.completedAt = task.getCompletedAt() != null ? task.getCompletedAt() : null;
-    this.createdAt = task.getCreatedAt();
-    this.updatedAt = task.getUpdatedAt();
+    this.deadlineAt = this.formatDateTime(task.getDeadlineAt());
+    this.completedAt = this.formatDateTime(task.getCompletedAt());
+    this.createdAt = this.formatDateTime(task.getCreatedAt());
+    this.updatedAt = this.formatDateTime(task.getUpdatedAt());
+  }
+
+  private String formatDateTime(LocalDateTime dateTime) {
+    return dateTime != null ? TimeUtil.Format.toYmdhm(dateTime) : null;
   }
 }
