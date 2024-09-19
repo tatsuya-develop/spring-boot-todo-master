@@ -2,7 +2,7 @@ package com.example.todo.dto.response.tasks;
 
 import com.example.todo.entity.Project;
 import com.example.todo.entity.Task;
-import com.example.todo.enums.task.TaskPriority;
+import com.example.todo.util.TimeUtil;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,9 +17,7 @@ public class TaskBaseResponse {
 
   private String name;
 
-  // レスポンスされる際は、TaskPriority の値を 0, 1, 2 で返す。
-  // TODO: 理想的なレスポンスは、TaskPriority の key, value, label それぞれを返すこと。
-  private TaskPriority priority;
+  private TaskPriorityResponse priority;
 
   private String memo;
 
@@ -37,7 +35,7 @@ public class TaskBaseResponse {
     this.id = task.getId();
     this.project = task.getProject();
     this.name = task.getName();
-    this.priority = task.getPriority();
+    this.priority = new TaskPriorityResponse(task.getPriority());
     this.memo = task.getMemo();
     this.deadlineAt = task.getDeadlineAt() != null ? task.getDeadlineAt() : null;
     this.completedAt = task.getCompletedAt() != null ? task.getCompletedAt() : null;
