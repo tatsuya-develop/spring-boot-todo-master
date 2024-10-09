@@ -19,7 +19,7 @@ public class TaskToggleService {
     Task task = this.taskRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Task not found with ID: " + id));
 
-    // TODO: completed_at の値を切り替える処理を実装したい。
+    task.toggleCompleted();
 
     return new TaskBaseResponse(this.taskRepository.save(task));
   }
