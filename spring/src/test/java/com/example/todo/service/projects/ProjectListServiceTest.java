@@ -4,28 +4,29 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.MockitoAnnotations;
 import com.example.todo.entity.Project;
 import com.example.todo.repository.ProjectRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 class ProjectListServiceTest {
 
-  @Autowired
-  private ProjectListService projectListService;
-
-  @MockBean
+  @Mock
   private ProjectRepository projectRepository;
+
+  @InjectMocks
+  private ProjectListService projectListService;
 
   private List<Project> mockProjects;
 
   @BeforeEach
   void setUp() {
+    MockitoAnnotations.openMocks(this);
+
     Project project1 = new Project();
     project1.setId(1);
     project1.setName("Project 1");
