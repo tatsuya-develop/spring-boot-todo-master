@@ -2,9 +2,10 @@ package com.example.todo.service.projects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.MockitoAnnotations;
 import com.example.todo.dto.request.projects.ProjectCreateRequest;
 import com.example.todo.entity.Project;
 import com.example.todo.repository.ProjectRepository;
@@ -12,17 +13,17 @@ import com.example.todo.repository.ProjectRepository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
-@SpringBootTest
 class ProjectCreateServiceTest {
 
-  @MockBean
+  @Mock
   private ProjectRepository projectRepository;
 
+  @InjectMocks
   private ProjectCreateService projectCreateService;
 
   @BeforeEach
   void setUp() {
-    this.projectCreateService = new ProjectCreateService(this.projectRepository);
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
