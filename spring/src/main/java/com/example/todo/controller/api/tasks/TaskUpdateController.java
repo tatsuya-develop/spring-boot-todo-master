@@ -22,7 +22,7 @@ public class TaskUpdateController {
 
   @PutMapping
   public ResponseEntity<TaskBaseResponse> invoke(@Valid @RequestBody TaskUpdateRequest request) {
-    TaskBaseResponse response = this.taskUpdateService.invoke();
+    TaskBaseResponse response = this.taskUpdateService.invoke(request);
     return ResponseEntity.ok(response);
   }
 }
