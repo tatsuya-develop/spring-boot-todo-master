@@ -40,7 +40,7 @@ class TaskCreateRequestTest {
 
     ConstraintViolation<TaskCreateRequest> violation = violations.iterator().next();
     assertEquals("name", violation.getPropertyPath().toString());
-    assertEquals("must not be empty", violation.getMessage());
+    assertEquals("空要素は許可されていません", violation.getMessage());
   }
 
   @Test
@@ -53,6 +53,6 @@ class TaskCreateRequestTest {
 
     ConstraintViolation<TaskCreateRequest> violation = violations.iterator().next();
     assertEquals("priority", violation.getPropertyPath().toString());
-    assertEquals("must not be null", violation.getMessage());
+    assertEquals("null は許可されていません", violation.getMessage());
   }
 }

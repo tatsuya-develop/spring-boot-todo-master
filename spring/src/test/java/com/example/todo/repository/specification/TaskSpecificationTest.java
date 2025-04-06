@@ -4,7 +4,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,10 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @DataJpaTest JPA関連のコンポーネント（リポジトリ、エンティティマネージャーなど）をテストするためのアノテーション
  */
 @DataJpaTest
-/**
- * @AutoConfigureTestDatabase 埋め込みデータベースの設定を無効化し、テスト用で独自で用意したデータベースを使用するためのアノテーション
- */
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 /**
  * @ActiveProfiles テスト用のプロファイルを指定するためのアノテーション（application-test.yml を読み込む）
  */

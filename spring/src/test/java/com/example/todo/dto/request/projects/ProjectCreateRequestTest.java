@@ -55,7 +55,7 @@ class ProjectCreateRequestTest {
     // violations.iterator().next() で1つ目の違反を取得し、その違反が name フィールドの @NotEmpty であることを確認
     ConstraintViolation<ProjectCreateRequest> violation = violations.iterator().next();
     assertEquals("name", violation.getPropertyPath().toString());
-    assertEquals("must not be empty", violation.getMessage());
+    assertEquals("空要素は許可されていません", violation.getMessage());
   }
 
   @Test

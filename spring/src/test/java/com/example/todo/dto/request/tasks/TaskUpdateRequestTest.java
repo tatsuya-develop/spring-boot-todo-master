@@ -45,7 +45,7 @@ public class TaskUpdateRequestTest {
 
     ConstraintViolation<TaskUpdateRequest> violation = violations.iterator().next();
     assertEquals("id", violation.getPropertyPath().toString());
-    assertEquals("must not be null", violation.getMessage());
+    assertEquals("null は許可されていません", violation.getMessage());
   }
 
   @Test
@@ -59,13 +59,13 @@ public class TaskUpdateRequestTest {
 
     ConstraintViolation<TaskUpdateRequest> violation = violations.iterator().next();
     assertEquals("id", violation.getPropertyPath().toString());
-    assertEquals("must be greater than 0", violation.getMessage());
+    assertEquals("0 より大きな値にしてください", violation.getMessage());
   }
 
   @Test
   void タスク名が空の場合にエラーになること() {
     TaskUpdateRequest request =
-        new TaskUpdateRequest(1, "", null, TaskPriority.HIGH, null, null, null);
+        new TaskUpdateRequest(1, "", null, TaskPriority.LOW, null, null, null);
 
     Set<ConstraintViolation<TaskUpdateRequest>> violations = this.validator.validate(request);
 
@@ -73,12 +73,13 @@ public class TaskUpdateRequestTest {
 
     ConstraintViolation<TaskUpdateRequest> violation = violations.iterator().next();
     assertEquals("name", violation.getPropertyPath().toString());
-    assertEquals("must not be empty", violation.getMessage());
+    assertEquals("空要素は許可されていません", violation.getMessage());
   }
 
   @Test
   void 優先度がnullの場合にエラーになること() {
-    TaskUpdateRequest request = new TaskUpdateRequest(1, "Task name", null, null, null, null, null);
+    TaskUpdateRequest request =
+        new TaskUpdateRequest(1, "Task name", null, null, null, null, null);
 
     Set<ConstraintViolation<TaskUpdateRequest>> violations = this.validator.validate(request);
 
@@ -86,7 +87,7 @@ public class TaskUpdateRequestTest {
 
     ConstraintViolation<TaskUpdateRequest> violation = violations.iterator().next();
     assertEquals("priority", violation.getPropertyPath().toString());
-    assertEquals("must not be null", violation.getMessage());
+    assertEquals("null は許可されていません", violation.getMessage());
   }
 
   @Test
