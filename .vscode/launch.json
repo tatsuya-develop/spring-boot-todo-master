@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TodoApplication<spring-boot-todo-master>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.todo.TodoApplication",
+            "projectName": "spring-boot-todo-master",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
